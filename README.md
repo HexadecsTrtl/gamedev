@@ -1,4 +1,4 @@
 # Prototyping 1: Go Go Gummi!
-This branch contains my Gummi ship prototype.
+This branch contains the unity project with my Gummi ship prototype.
 
 
