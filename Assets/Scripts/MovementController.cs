@@ -1,22 +1,44 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MovementController : MonoBehaviour
 {
-    float horizontal, vertical;
+
+    [SerializeField]
+    PlayerStats stats;
+
+    Vector2 moveInput;
+
+    [SerializeField]
+    float moveSpeed = 5f;
+
+    //[SerializeField]
+    CharacterController controller;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        controller = GetComponent<CharacterController>();
 
+        //Debug.Log(stats.Health);
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        controller.Move(moveSpeed * Time.deltaTime * new Vector3(moveInput.x, 0, moveInput.y));
+    }
 
-        transform.Translate(new Vector3(horizontal, 0, vertical) * 5 * Time.deltaTime);
+    public void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+    }
+
+    public void OnJump(InputValue value)
+    {
+        stats.Health += 10;
     }
 }
