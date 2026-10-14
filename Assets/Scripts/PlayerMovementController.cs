@@ -11,8 +11,9 @@ public class MovementController : MonoBehaviour
     [SerializeField] float gravityValue = -15f;
     [SerializeField] float stickToGroundForce = -2f;
 
-    PlayerStats stats;
+
     CharacterController controller;
+    PlayerStats stats;
 
     Vector2 moveInput;
 
@@ -41,7 +42,9 @@ public class MovementController : MonoBehaviour
         // Apply gravity
         verticalVelocity += gravityValue * Time.deltaTime;
 
-        Vector3 horizontalMovement = new Vector3(moveInput.x, 0f, moveInput.y) * moveSpeed;
+        Vector3 horizontalMovement = transform.right * moveInput.x + transform.forward * moveInput.y;
+        horizontalMovement *= moveSpeed;
+
         Vector3 verticalMovement = new Vector3(0f, verticalVelocity, 0f);
 
         controller.Move((horizontalMovement + verticalMovement) * Time.deltaTime);
